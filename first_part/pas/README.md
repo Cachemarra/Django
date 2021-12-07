@@ -99,5 +99,68 @@ inside our app.
 To see the SQL command that is going to be executed we could run:
 ``python manage.py sqlmigrate persons 0001``
 
+To create the table we will run the command:
+``python manage.py migrate``
+
+Now you can check in your database admin if the table is created as you defined.
+
+-----------------
+
+## Creation of SuperUser to /admin
+
+First, run ``python manage.py createsuperuser`` in command line. 
+Add the credentials _Username_ , _email address_, _password_.
+
+As this is for learning, it doesn't care if the password is weak and less of 8 chars
+
+Now we can access to /admin.
+
+We want to add the persons model, so we must go to admin.py in **pas** app and register
+the model as ``admin.site.register(Person)``.
+
+If you log in again in admin/ you will see the model.
+
+As a recommendation, check all the options and things you can do in the Django administration.
+You can try to add a new Person object. It will ask you the fields we defined early.
+
+Doing that you'll see that the new person is added to your SQL table in Postgres.
+
+You can personalized how to change the name showed in the Django administration by adding a
+__str__ method in Persona class. Then, refresh the page and the new format will be showed.
+
+Now it doesn't matter where you add a new person to the db, it will be showed everywhere!
+
+--------------
+
+## Creation of new class, Address
+
+The new class will be added in Person class and must be created on models.py inside persons app.
+
+In this ocassion, you must specify the ForeignKey as it is part of other table, this is part
+of SQL tables management and specify what will happened if Address field is deleted.
+This is how both tables are going to relationate.
+
+As we create a new table we need to emigrate with ``python manage.py makemigrations``
+
+As we changed things in Person database we can delete it and create a new one or make migrations one by one.
+
+In this case we don't care about our registers so we can delete everything, but if we already had a full register
+we need to solve every mistake and problems with the database using ``python manage.py migrate``
+
+Remember to register the class in admin.py
+
+Now if you create a new Person object you will see a new field: Address, when add a new address a window
+will popup and you need to fill the data.
+
+----------------
+
+## Templates
+
+With render method we can send beautiful images.
+We're going to modify webapp/views.py Welcome to change the HttpResponse to render and add the filename.
+we must create a 'templates' folder.
+
+Inside we create a welcome.html file.
+
 
 
