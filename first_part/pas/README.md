@@ -29,7 +29,7 @@ From url file we can add routes and urls for our app, adding the ``/`` in the we
 We are going to add a new path, 'welcome/' (the `/` is important!) and tell the script that
 must call a 'welcome' function in views.
 
-It is importantto note that now you won't have a main page and must add the /welcome/ in
+It is important note that now you won't have a main page and must add the /welcome/ in
 your webbrowser.
 
 You can change this by writing the above code in urls script.
@@ -161,6 +161,103 @@ We're going to modify webapp/views.py Welcome to change the HttpResponse to rend
 we must create a 'templates' folder.
 
 Inside we create a welcome.html file.
+
+We can create dinamic content with templates using dictionaries in the welcome function and parsing
+to the return render.
+
+In the HTML file we need use ``{{}}`` to add variables. The var names must be the same as in the
+dictionary.
+
+Now we are going to mix webapp and persons.
+
+First in Views we create a new path called home where we create a person object. As it is child
+of models.Model it has an inherith method called objects. we're gonna use it to count persons in the
+database.
+
+Then, we add a 'welcome.html' file in templates and called the number_persons variable. Finally, we add 
+the route /home to urlpatterns in urls.py in pas folder.
+
+Once checked we will add a view of all persons in the database rendering directly to our home page
+
+This will be achieved by adding a variable persons in welcome function in this way:
+``persons = Person.objects.all()``
+Django will send us objects of Person class, in background Django will query the db for the info and
+transform it to Person objects.
+
+Lastly we add that variable to our dictionary. Now, we have to modify the html file to show the persons.
+We go to our html file and create a new div with an unordered list inside. Inside the unordered list, we
+use a function for each to create list items containing the elements. The way of creation of a for each is using
+double braces with percentage symbol. This is no python but Django render html syntax. The code is the next:
+ 
+``
+    <div>
+        <ul>
+            {% for person in persons %}
+                <li> Person: {{person.id}} </li>
+            {% endfor %}
+        </ul>
+    </div>
+``
+
+If you want more info you could add it as you'll do in python, e.g. ``{{person.name}}``
+
+--------------
+
+## Adding options
+
+We're gonna  add:
+
+- Link to see details of selected person.
+- Link to create a new person.
+- Another link to modify.
+- Delete a person.
+
+To do the first we must add the link reference in our html, to do that we use ``<a href=''>`` snipet.
+as we want a dinamic url, we use double braces to get the person id. The full command will be something like this:
+``<a href="person_details/{{person.id}}">See details</a>``
+
+Next we need to define the path of *person_details* in urls.py If we add '<int:id>' we're telling Django to
+define the url of the primary key. Then we tell the program that a function will be called, the name will be _personDetails_ and will be
+defined  in views.py on persons folder.
+
+The function will have, besides request, *id* which will be pased thanks to <int:id>. We will get the details
+using ``Person.objects.get(pk=id)```and then, return a render request to a html that will be created.
+
+We create our *templates* folder in persons app and then create a subfolder called persons, finally, create our html file. You can create your html page
+as you want, but try to use ```{{person.id}}, {{person.name}}, {{person.last_name}}, {{person.mail}}```
+In my case, each one has in his own div and create a 'return' option which return us to '/home'.
+
+But what will happen if u ask for a person that doesn't exists?
+A ugly error will show. We are going to modify the code in views.py to show a 404 in this cases.
+To do that we must change the way we ask for that info. We are gonna use get_object_or_404 function, which do everything for us.
+
+Now, if we ask for a person.id that doesn't exists, a 404 page will be show. Note: We are using Debug mode, so if you deactivate it, a 
+different 404 page will be shown.
+
+--------------------
+
+For the creation of new persons we're gonna create a new html in the templates/persons folder the name will be 'new'.
+
+We wish to ask for info, so we will use a form and a post request, so the info won't be showed on the url.
+Djando help us creating forms that contains all the parameters of our methods, so we are going to create that model.
+First, in our html code we open a <form></form> braces and write the future object in it: {{personForm}}.
+The model will be defined in persons/views.py
+
+First we create an object called PersonForm and using the function ``modelform_factory(Person, exclude=[])``.
+That new class variable will be used in the new function: newPerson. And lastly, we return the render.
+
+Now we create the url for creation of new persons in urls.py and add a href in home html pointing to new_person.html
+
+We can wrap {{personForm}} in <table> to improve the view.
+
+Now, we add a button to submit the new person to our database. This can be done with <button>.
+Once added the button, if we try to send data, we will see that we need a token, the CSRF verification will fail.
+This is easyly done with ``{% csrf_token %}``. Note: CSRF -> Cross-Site Request Forgery.
+
+Now we need to catch the data in the server!
+
+-----------------------------
+
 
 
 

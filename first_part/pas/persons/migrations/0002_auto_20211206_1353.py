@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.AddField(
-            model_name='person',
+            model_name='persons',
             name='address',
             field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='persons.address'),
         ),

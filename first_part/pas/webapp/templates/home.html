@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Home of Person Administrator Service (SAP)</h1>
+    <div>
+        Number of persons: {{number_persons}}
+    </div>
+    <div>
+        <ul>
+            {% for person in persons %}
+                <li>Person: {{person.id}}: {{person.name}}
+                    {{person.last_name}}
+                    {{person.mail}}
+                    <a href="person_details/{{person.id}}">See details</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <a href="new_person">Add person</a>
+    </div>
+</body>
+</html>
