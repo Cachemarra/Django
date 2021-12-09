@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from persons.views import personDetails, newPerson
+from persons.views import personDetails, newPerson, editPerson
 from webapp.views import welcome, goodbye, contact, home
 
 urlpatterns = [
@@ -24,8 +24,8 @@ urlpatterns = [
     path('welcome/', welcome), # describe the function name in views.
     path('goodbye.html', goodbye),
     path('contact', contact),
-    path('home', home),
+    path('home', home, name='index'),
     path('person_details/<int:id>', personDetails),
-    path('new_person', newPerson)
+    path('new_person', newPerson),
+    path('edit_person/<int:id>', editPerson)
 ]
-0

@@ -258,6 +258,59 @@ Now we need to catch the data in the server!
 
 -----------------------------
 
+As we state before, we want to validate the post petition on newPerson, so we add a check 
+to see if the info is parsed as a POST petition.
+If not, that means that is the first time the person access to the page so we render the normal page.
+
+In the POST method we create a Person object with the info we get through the data from the POST.
+Then, a validation must be done with the method ``personForm.is_valid()``. if it is, then we save it.
+If not, we redirect to the home page. To do so we add ``name='index'`` in the home path and add
+``return redirect('index')`` in the formPerson.isvalid check.
+
+**NOTE** You can use 'index' in the html href too by using {% url 'name' %}
+
+-------------------------------
+
+Our form was creating by modelform_factory function, but what we have to do if we want to create our own?
+First, we must create a new python file in persons folder, it will be called forms.py.
+
+The new file will import ModelForm and have a class that extends from ModelForm.
+
+with fields we are saying that we're gonna use every field of Person class.
+with widgets we add the data type in html format.
+Much of the data is obtained from django documentation, I strongly recomend check it out
+
+Doing that we can change the code in views, changing the modelform_factory for our own PersonForm method.
+
+-----------
+
+## Edit a person.
+
+We first add the option in our home html as a <a href>. We also do some refactory in our code to show
+better our content.
+
+We add the new path in the urls.py and create a new methodin the persons/view called editPerson.
+We're gonna copy all the code used in newPerson, as it will be almost the same as django knows if the id
+is new or an existing one.
+The difference is in the 'else', where we will receive the id in the url, so we need to add the <int:id> in the path and in the
+new method.
+
+In the else, we ask for the person by his id and then, we recover the data in PersonForm by the id. Remember that the model
+is a Person class.
+we create a new html file in templates/persons. we can copy all the html code from new.html.
+We just change the title and h1.
+
+If you try to modify a person yo will see that is not modifyed but added a new register with the changes.
+To overcome that problem you must add the instance=person in the personForm inside the POST IF. In that way,
+django will know what is the person you want to modify.
+
+------------
+
+## Delete a person
+
+Now you should know what to do.
+
+1. Add a new link in hour home html file for deleting a person. P.S. you must add a <td> too.
 
 
 

@@ -5,23 +5,35 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>Home of Person Administrator Service (SAP)</h1>
-    <div>
-        Number of persons: {{number_persons}}
-    </div>
-    <div>
-        <ul>
-            {% for person in persons %}
-                <li>Person: {{person.id}}: {{person.name}}
-                    {{person.last_name}}
-                    {{person.mail}}
-                    <a href="person_details/{{person.id}}">See details</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div>
-        <a href="new_person">Add person</a>
-    </div>
+<h1>Home of Person Administrator Service (SAP)</h1>
+<div>
+    Number of persons: {{number_persons}}
+</div>
+<div>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Mail</th>
+            <th></th> <!-- Empty cell for link see detail-->
+            <th></th> <!-- Edit link -->
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for person in persons %}
+        <tr>
+            <td>{{person.id}}</td>
+            <td>{{person.name}} {{person.last_name}}</td>
+            <td>{{person.mail}}</td>
+            <td><a href="person_details/{{person.id}}">See details</a></td>
+            <td><a href="edit_person/{{person.id}}">Edit</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
