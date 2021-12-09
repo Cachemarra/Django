@@ -19,6 +19,7 @@
             <th>Mail</th>
             <th></th> <!-- Empty cell for link see detail-->
             <th></th> <!-- Edit link -->
+            <th></th> <!-- Delete person -->
         </tr>
         </thead>
 
@@ -30,10 +31,12 @@
             <td>{{person.mail}}</td>
             <td><a href="person_details/{{person.id}}">See details</a></td>
             <td><a href="edit_person/{{person.id}}">Edit</a></td>
+            <td><a href="delete_person/{{person.id}}">Delete</a></td>
         </tr>
         {% endfor %}
         </tbody>
     </table>
+    <a href="new_person">Add person</a>
 </div>
 </body>
 </html>

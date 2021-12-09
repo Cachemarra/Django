@@ -310,7 +310,14 @@ django will know what is the person you want to modify.
 
 Now you should know what to do.
 
-1. Add a new link in hour home html file for deleting a person. P.S. you must add a <td> too.
+1. Add a new link in hour home html file for deleting a person. P.S. you must add a <th> too.
+2. Add the path in urls.
+3. Create the deletePerson method in persons/view.py P.S. you can copy the code of edit person.
+
+Now you don't need the request POST method, you can just as for the id and use the .delete() method from class.
+Then just redirect to home.
+
+Once created try the metod creating someone new and then, delete it.
 
 
 

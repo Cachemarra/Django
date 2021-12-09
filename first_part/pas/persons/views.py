@@ -47,3 +47,14 @@ def editPerson(request, id):
         personForm = PersonForm(instance=person)
 
     return render(request, 'persons/edit.html', {'personForm': personForm})
+
+
+#%% Delete person
+def deletePerson(request, id):
+
+    person = get_object_or_404(Person, pk=id)
+
+    if person:
+        person.delete()
+
+    return redirect('index')
