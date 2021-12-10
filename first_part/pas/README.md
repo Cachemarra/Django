@@ -319,5 +319,10 @@ Then just redirect to home.
 
 Once created try the metod creating someone new and then, delete it.
 
+-----
 
+## Ordering 
 
+To sort by ID is easy as going to webapp/views and adding the **.order_by()** method instead of **.all()**
+
+That is: ``persons = Person.objects.order_by('id')``

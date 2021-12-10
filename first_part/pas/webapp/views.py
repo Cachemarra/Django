@@ -30,6 +30,7 @@ def contact(request):
 
 def home(request):
     number_persons = Person.objects.count()
-    persons = Person.objects.all()
+    # persons = Person.objects.all() # Shows without order
+    persons = Person.objects.order_by('id')
     return render(request, 'home.html', {'number_persons': number_persons, 'persons': persons})
 
